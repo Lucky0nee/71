@@ -27,9 +27,26 @@ void printFraction(std::unique_ptr<Fraction> ptr) { // const Fraction* const ptr
 		std::cout << *ptr;
 }
 
+std::unique_ptr<Fraction> DoSomething(int firstNum, int secondNum) {
+	for (int i = 2; i < 10; i++) {
+		if (firstNum % i == 0 && secondNum % i == 0) {
+			firstNum /= i; //std::cout << firstNum << " ";
+			secondNum /= i;  //std::cout << secondNum << " ";
+			i = 2;
+		}
+		//std::cout << i;
+	}
+
+	return std::make_unique<Fraction>(firstNum, secondNum);
+}
+
 int main() {
 	std::unique_ptr<Fraction> ptr = std::make_unique<Fraction>(49, 11711);
 
+	std::cout << "\n" << "Початковий дріб: "; 
 	printFraction(std::move(ptr));
+	std::cout << "\n" << "Скорочений дріб: ";
+	printFraction(std::move(DoSomething(49, 11711)));
+	
 	return 0;
 }
